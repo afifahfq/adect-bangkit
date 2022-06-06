@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ADECT</string>
+    <string name="tab_home">Home</string>
+    <string name="tab_hospital">Hospital</string>
+    <string name="tab_predict">Predict</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_adect">ADECT</string>
+    <string name="tab_articles">Articles</string>
+</resources>

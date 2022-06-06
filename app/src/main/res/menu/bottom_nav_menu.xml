@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/articleFragment"
+        android:icon="@drawable/ic_baseline_library_books_24"
+        android:title="@string/tab_articles" />
+    <item
+        android:id="@+id/hospitalFragment"
+        android:icon="@drawable/ic_baseline_not_listed_location_24"
+        android:title="@string/tab_hospital" />
+    <item
+        android:id="@+id/predictFragment"
+        android:icon="@drawable/ic_baseline_image_search_24"
+        android:title="@string/tab_predict" />
+
+</menu>
