@@ -9,8 +9,8 @@ import retrofit2.http.Query
 interface ApiService {
     @GET("everything")
     fun getArticles(
-        @Query("q") q: String? = "anemia",
-        @Query("sortBy") sortBy: String? = "popularity",
+        @Query("q") q: String? = "+anemia",
+        @Query("sortBy") sortBy: String? = "relevance",
         @Query("language") language: String? = "en",
         @Query("apiKey") apiKey: String? = "74b833108c194e9bb3edbb36b22bd8b5"
     ): Call<ArticlesResponse>

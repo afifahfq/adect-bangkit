@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "268672950147",
+    "project_id": "adect-7117a",
+    "storage_bucket": "adect-7117a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268672950147:android:0ffd1e01c65c9355ba60b6",
+        "android_client_info": {
+          "package_name": "com.example.adect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "268672950147-kuc9nc70hvb0s8dordh750f2oj5h3o32.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvguUvEsZDkFZOSK1H_FgilQauJsqHG3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "268672950147-kuc9nc70hvb0s8dordh750f2oj5h3o32.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

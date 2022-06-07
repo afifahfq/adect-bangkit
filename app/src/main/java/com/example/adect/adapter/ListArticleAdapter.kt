@@ -25,7 +25,7 @@ class ListArticleAdapter(private val listArticles: ArrayList<Article>) : Recycle
         val (author, title, description, url, urlToImage, publishedAt, content) = listArticles[position]
         Glide.with(holder.itemView.context)
             .load(urlToImage)
-            .into(holder.imgPhoto);
+            .into(holder.imgPhoto)
 
         holder.tvTitle.text = title
         holder.tvAuthor.text = "by " + author

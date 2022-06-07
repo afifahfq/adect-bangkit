@@ -31,10 +31,10 @@ class ArticleViewModel: ViewModel() {
                 if (responseBody!!.status == "ok" && responseBody.totalResults!! > 0) {
                     val result = responseBody.articles!!
                     for (article in result) {
-                        var desc = article!!.description!!.replace("\\<(.*?)\\>".toRegex(), "")
+                        val desc = article!!.description!!.replace("\\<(.*?)\\>".toRegex(), "")
 
-                        var curr = Article(
-                            article!!.author.toString(),
+                        val curr = Article(
+                            article.author.toString(),
                             article.title.toString(),
                             desc,
                             article.url.toString(),
@@ -55,7 +55,6 @@ class ArticleViewModel: ViewModel() {
     }
 
     fun getListArticles(): LiveData<ArrayList<Article>?> {
-//        Log.i("CEKPOIN", mArticles.)
         return mArticles
     }
 
