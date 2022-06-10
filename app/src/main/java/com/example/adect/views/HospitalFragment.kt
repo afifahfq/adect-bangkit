@@ -5,29 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.adect.R
+import com.example.adect.adapter.ListHospitalAdapter
+import com.example.adect.databinding.FragmentHospitalBinding
+import com.example.adect.models.Hospital
+import com.example.adect.viewmodels.HospitalViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HospitalFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HospitalFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var mLiveDataList: HospitalViewModel
+    private lateinit var rvHospitals: RecyclerView
+    private var _binding: FragmentHospitalBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -35,26 +30,62 @@ class HospitalFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hospital, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_hospital, container, false)
+        _binding = FragmentHospitalBinding.inflate(inflater, container, false)
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        rvHospitals = view.findViewById(R.id.rv_hospitals)
+        rvHospitals.setHasFixedSize(true)
+
+        mLiveDataList = ViewModelProvider(this)[HospitalViewModel::class.java]
+        subscribe()
+        mLiveDataList.getHospitals()
+    }
+
+    private fun subscribe() {
+        val statusObserver = Observer<Boolean> { aStatus ->
+            showLoading(aStatus)
+        }
+        mLiveDataList.getStatus().observe(viewLifecycleOwner, statusObserver)
+
+        val hospitalsObserver = Observer<ArrayList<Hospital>?> { aList ->
+            showRecyclerList(aList)
+        }
+        mLiveDataList.getListHospitals().observe(viewLifecycleOwner, hospitalsObserver)
+    }
+
+    private fun showRecyclerList(aList: ArrayList<Hospital>) {
+        rvHospitals.layoutManager = LinearLayoutManager(activity)
+
+        val listHospitalAdapter = ListHospitalAdapter(aList)
+        rvHospitals.adapter = listHospitalAdapter
+
+//        listHospitalAdapter.setOnItemClickCallback(object : ListHospitalAdapter.OnItemClickCallback {
+//            override fun onItemClicked(data: Hospital) {
+////                val detailHospitalIntent = Intent(context, DetailHospitalActivity::class.java)
+////                detailHospitalIntent.putExtra(DetailHospitalActivity.EXTRA_USER, data)
+//
+//                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data.url))
+//                startActivity(browserIntent)
+//            }
+//        })
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            val progressBar: ProgressBar = requireView().findViewById(R.id.progressBar)
+            progressBar.visibility = View.VISIBLE
+        } else {
+            val progressBar: ProgressBar = requireView().findViewById(R.id.progressBar)
+            progressBar.visibility = View.GONE
+        }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HospitalFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HospitalFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

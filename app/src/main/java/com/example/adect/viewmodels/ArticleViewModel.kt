@@ -21,7 +21,7 @@ class ArticleViewModel: ViewModel() {
         mArticles.postValue(articles)
         loadingStatus.postValue(true)
 
-        val client = ApiConfig.getApiService().getArticles()
+        val client = ApiConfig.getApiService("https://newsapi.org/v2/").getArticles()
         client.enqueue(object : Callback<ArticlesResponse> {
             override fun onResponse(
                 call: Call<ArticlesResponse>,
