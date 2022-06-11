@@ -7,14 +7,14 @@ data class HospitalResponse(
 	@field:SerializedName("count_total")
 	val countTotal: Int? = null,
 
+	@field:SerializedName("data")
+	val data: List<DataItem?>? = null,
+
 	@field:SerializedName("success")
 	val success: Boolean? = null,
 
 	@field:SerializedName("message")
-	val message: String? = null,
-
-	@field:SerializedName("results")
-	val results: List<ResultsItem?>? = null
+	val message: String? = null
 )
 
 data class DetailItem(
@@ -59,7 +59,7 @@ data class DetailItem(
 	val batalVaksin1: Int? = null
 )
 
-data class ResultsItem(
+data class DataItem(
 
 	@field:SerializedName("provinsi")
 	val provinsi: String? = null,
@@ -95,7 +95,7 @@ data class ResultsItem(
 	val id: Int? = null,
 
 	@field:SerializedName("detail")
-	val detail: List<DetailItem?>? = null,
+	val detail: List<Any?>? = null,
 
 	@field:SerializedName("longitude")
 	val longitude: String? = null,

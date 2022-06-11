@@ -1,7 +1,9 @@
 package com.example.adect.api
 
 import com.example.adect.models.ArticlesResponse
+import com.example.adect.models.CityResponse
 import com.example.adect.models.HospitalResponse
+import com.example.adect.models.ProvinceResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -18,7 +20,16 @@ interface ApiService {
 
     @GET("get-faskes-vaksinasi")
     fun getHospitals(
-        @Query("province") province: String?,
-        @Query("city") city: String?,
+        @Query("province") province: String? = "ACEH",
+        @Query("city") city: String? = "KAB. ACEH TIMUR"
     ): Call<HospitalResponse>
+
+    @GET("get-province")
+    fun getProvinces()
+    : Call<ProvinceResponse>
+
+    @GET("get-city")
+    fun getCities(
+        @Query("start_id") province: String
+    ): Call<CityResponse>
 }

@@ -12,4 +12,9 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="sign_out">Sign Out</string>
+    <string-array name="Weight">
+        <item>Kg</item>
+        <item>Gram</item>
+        <item>Tons</item>
+    </string-array>
 </resources>
