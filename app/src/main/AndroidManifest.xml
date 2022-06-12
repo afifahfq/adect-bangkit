@@ -22,9 +22,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ADECT">
         <activity
-            android:name=".views.LoginActivity"
-            android:exported="false" />
-        <activity
             android:name=".views.PredictResultActivity"
             android:exported="false" />
         <activity

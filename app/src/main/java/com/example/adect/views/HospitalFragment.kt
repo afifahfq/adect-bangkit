@@ -3,7 +3,6 @@ package com.example.adect.views
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -98,8 +97,6 @@ class HospitalFragment : Fragment() {
     private fun showRecyclerList(aList: ArrayList<Hospital>) {
         rvHospitals.layoutManager = LinearLayoutManager(activity)
 
-        Log.i("CEKPOIN2", aList.toString())
-
         val listHospitalAdapter = ListHospitalAdapter(aList)
         rvHospitals.adapter = listHospitalAdapter
 
@@ -128,7 +125,6 @@ class HospitalFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-//                Toast.makeText(context, listProvince[position], Toast.LENGTH_SHORT).show()
                 provinceSelect = listProvince[position]
                 mLiveDataList.getCities(provinceSelect)
             }
