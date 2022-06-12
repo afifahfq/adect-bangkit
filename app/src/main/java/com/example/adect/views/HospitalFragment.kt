@@ -1,7 +1,7 @@
 package com.example.adect.views
 
-import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -45,8 +44,6 @@ class HospitalFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-//        val view: View = inflater.inflate(R.layout.fragment_hospital, container, false)
         _binding = FragmentHospitalBinding.inflate(inflater, container, false)
 
         val view: View = binding.root
@@ -108,12 +105,11 @@ class HospitalFragment : Fragment() {
 
         listHospitalAdapter.setOnItemClickCallback(object : ListHospitalAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Hospital) {
-                val myIntent = Intent(context, MapsActivity::class.java)
-                myIntent.putExtra(MapsActivity.EXTRA_NAME, data.nama)
-                myIntent.putExtra(MapsActivity.EXTRA_DESC, data.alamat)
-                myIntent.putExtra(MapsActivity.EXTRA_LAT, data.latitude)
-                myIntent.putExtra(MapsActivity.EXTRA_LONG, data.longitude)
-                startActivity(myIntent)
+                val loc: String = "geo:" + data.latitude + "," + data.longitude
+                val gmmIntentUri: Uri = Uri.parse(loc)
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                mapIntent.setPackage("com.google.android.apps.maps")
+                startActivity(mapIntent)
             }
         })
     }

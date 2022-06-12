@@ -69,9 +69,6 @@ class ArticleFragment : Fragment() {
 
         listArticleAdapter.setOnItemClickCallback(object : ListArticleAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Article) {
-//                val detailArticleIntent = Intent(context, DetailArticleActivity::class.java)
-//                detailArticleIntent.putExtra(DetailArticleActivity.EXTRA_USER, data)
-
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data.url))
                 startActivity(browserIntent)
             }
