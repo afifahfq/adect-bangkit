@@ -1,13 +1,10 @@
 package com.example.adect.api
 
-import com.example.adect.models.ArticlesResponse
-import com.example.adect.models.CityResponse
-import com.example.adect.models.HospitalResponse
-import com.example.adect.models.ProvinceResponse
+import com.example.adect.models.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
     @GET("everything")
@@ -32,4 +29,10 @@ interface ApiService {
     fun getCities(
         @Query("start_id") province: String
     ): Call<CityResponse>
+
+    @Multipart
+    @POST("predict")
+    fun getPredict(
+        @Part photo: MultipartBody.Part
+    ): Call<PredictResponse>
 }

@@ -12,9 +12,8 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="sign_out">Sign Out</string>
-    <string-array name="Weight">
-        <item>Kg</item>
-        <item>Gram</item>
-        <item>Tons</item>
-    </string-array>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
 </resources>

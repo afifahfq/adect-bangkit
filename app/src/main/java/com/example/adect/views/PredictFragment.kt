@@ -31,7 +31,11 @@ class PredictFragment : Fragment() {
         val view = binding.root
 
         descView = view.findViewById(R.id.descView)
-        descView.text = "APA"
+        descView.text = "Anemia is a condition in which you lack enough healthy red blood cells to carry adequate oxygen to your body's tissues. Having anemia, also referred to as low hemoglobin, can make you feel tired and weak.\n" +
+                "\n" +
+                "There are many forms of anemia, each with its own cause. Anemia can be temporary or long term and can range from mild to severe. In most cases, anemia has more than one cause. See your doctor if you suspect that you have anemia. It can be a warning sign of serious illness.\n" +
+                "\n" +
+                "Treatments for anemia, which depend on the cause, range from taking supplements to having medical procedures. You might be able to prevent some types of anemia by eating a healthy, varied diet."
 
         predictButton = view.findViewById(R.id.predictButton)
         predictButton.setOnClickListener{

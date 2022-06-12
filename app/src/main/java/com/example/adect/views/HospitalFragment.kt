@@ -1,5 +1,7 @@
 package com.example.adect.views
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +20,6 @@ import com.example.adect.adapter.ListHospitalAdapter
 import com.example.adect.databinding.FragmentHospitalBinding
 import com.example.adect.models.Hospital
 import com.example.adect.viewmodels.HospitalViewModel
-
 
 class HospitalFragment : Fragment() {
     private lateinit var mLiveDataList: HospitalViewModel
@@ -104,15 +106,16 @@ class HospitalFragment : Fragment() {
         val listHospitalAdapter = ListHospitalAdapter(aList)
         rvHospitals.adapter = listHospitalAdapter
 
-//        listHospitalAdapter.setOnItemClickCallback(object : ListHospitalAdapter.OnItemClickCallback {
-//            override fun onItemClicked(data: Hospital) {
-////                val detailHospitalIntent = Intent(context, DetailHospitalActivity::class.java)
-////                detailHospitalIntent.putExtra(DetailHospitalActivity.EXTRA_USER, data)
-//
-//                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data.url))
-//                startActivity(browserIntent)
-//            }
-//        })
+        listHospitalAdapter.setOnItemClickCallback(object : ListHospitalAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Hospital) {
+                val myIntent = Intent(context, MapsActivity::class.java)
+                myIntent.putExtra(MapsActivity.EXTRA_NAME, data.nama)
+                myIntent.putExtra(MapsActivity.EXTRA_DESC, data.alamat)
+                myIntent.putExtra(MapsActivity.EXTRA_LAT, data.latitude)
+                myIntent.putExtra(MapsActivity.EXTRA_LONG, data.longitude)
+                startActivity(myIntent)
+            }
+        })
     }
 
     private fun showProvinceSpinner(aList: ArrayList<String>) {

@@ -1,7 +1,6 @@
 package com.example.adect.views
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
@@ -15,7 +14,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
@@ -56,39 +54,35 @@ class PredictActivity : AppCompatActivity() {
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.uploadButton.setOnClickListener { uploadImage() }
 
-        binding.editDescriptionText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-            }
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (s.toString().length != 0) {
-                    setMyButtonEnable()
-                }
-            }
-            override fun afterTextChanged(s: Editable) {
-            }
-        })
+        binding.editDescriptionText.text = "How to take photo : \n" +
+                "Gently pull your lower eyelid downward while focusing your eyes upward. Make sure to take the photo close enough so your eyelid color can be captured correctly.\n" +
+                "Photo example : "
 
         mLiveDataStory = ViewModelProvider(this)[PredictViewModel::class.java]
-//        subscribe()
+        subscribe()
     }
 
     private fun subscribe() {
-        val statusObserver = Observer<Boolean> { aStatus ->
-            showResult(aStatus)
-        }
-//        mLiveDataStory.getStatus().observe(this, statusObserver)
-
         val loadingObserver = Observer<Boolean> { aLoading ->
             showLoading(aLoading)
         }
-//        mLiveDataStory.getLoading().observe(this, loadingObserver)
+        mLiveDataStory.getStatus().observe(this, loadingObserver)
+
+        val resultObserver = Observer<String?> { aResult ->
+            if (aResult != "") {
+                showResult(aResult)
+            }
+        }
+        mLiveDataStory.getListPredict().observe(this, resultObserver)
     }
 
-    private fun showResult(aStatus: Boolean) {
-        if (aStatus == true) {
-            Toast.makeText(this, "Story uploaded!", Toast.LENGTH_SHORT).show()
-            val detailStoryIntent = Intent(this@PredictActivity, PredictResultActivity::class.java)
-            startActivity(detailStoryIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@PredictActivity as Activity).toBundle())
+    private fun showResult(aResult: String) {
+        if (aResult != "failure") {
+            Toast.makeText(this, "Image sent!", Toast.LENGTH_SHORT).show()
+
+            val myIntent = Intent(this@PredictActivity, PredictResultActivity::class.java)
+            myIntent.putExtra(PredictResultActivity.EXTRA_RESULT, aResult)
+            startActivity(myIntent)
             finish()
         } else {
             Toast.makeText(this, "Upload failed, please retry!", Toast.LENGTH_SHORT).show()
@@ -174,19 +168,15 @@ class PredictActivity : AppCompatActivity() {
         )
 
         val builder = androidx.appcompat.app.AlertDialog.Builder(view.context)
-        builder.setTitle("Upload Story")
-        builder.setMessage("How do you want to upload your story?")
+        builder.setTitle("Predict Anemia")
+        builder.setMessage("Send your image to be predicted for anemia?")
 
         builder.setPositiveButton(
             "Send") { dialog, id ->
 //            Toast.makeText(this, "As Myself",Toast.LENGTH_SHORT).show()
-//            mLiveDataStory.addNewStory(userPreference.getToken(), description, imageMultipart)
+            mLiveDataStory.getPredict(imageMultipart)
+
         }
-//        builder.setNegativeButton(
-//            "As Guest") { dialog, id ->
-//            Toast.makeText(this, "As Guest",Toast.LENGTH_SHORT).show()
-//            mLiveDataStory.addNewStoryGuest(description, imageMultipart)
-//        }
         builder.setNeutralButton(
             "Cancel") { dialog, id ->
         }
